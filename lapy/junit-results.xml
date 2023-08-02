@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="19" time="0.669" timestamp="2023-08-02T12:36:32.870121" hostname="euclid"><testcase classname="lapy.test_tria_mesh" name="test_is_closed" time="0.003" /><testcase classname="lapy.test_tria_mesh" name="test_is_manifold" time="0.002" /><testcase classname="lapy.test_tria_mesh" name="test_is_oriented" time="0.002"><failure message="AssertionError: Expected is_oriented result True, but got False&#10;assert False == True">tria_mesh_fixture = &lt;lapy.tria_mesh.TriaMesh object at 0x7f6a49511dc0&gt;
+
+    def test_is_oriented(tria_mesh_fixture):
+        '''
+        Testing the check for mesh orientation
+        '''
+        mesh = tria_mesh_fixture
+        result = mesh.is_oriented()
+        expected_result = True
+&gt;       assert result == expected_result, f"Expected is_oriented result {expected_result}, but got {result}"
+E       AssertionError: Expected is_oriented result True, but got False
+E       assert False == True
+
+test_tria_mesh.py:215: AssertionError</failure></testcase><testcase classname="lapy.test_tria_mesh" name="test_euler" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_tria_areas" time="0.015" /><testcase classname="lapy.test_tria_mesh" name="test_area" time="0.002" /><testcase classname="lapy.test_tria_mesh" name="test_volume" time="0.001"><failure message="ValueError: Error: Can only compute volume for oriented triangle meshes!">tria_mesh_fixture = &lt;lapy.tria_mesh.TriaMesh object at 0x7f6a0bf934f0&gt;
+
+    def test_volume(tria_mesh_fixture):
+        '''
+        Testing the computation of enclosed volume for oriented mesh
+        '''
+        mesh = tria_mesh_fixture
+&gt;       result = mesh.volume()
+
+test_tria_mesh.py:225: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;lapy.tria_mesh.TriaMesh object at 0x7f6a0bf934f0&gt;
+
+    def volume(self):
+        """Compute the volume of closed triangle mesh, summing tetrahedra at origin.
+    
+        Returns
+        -------
+        vol : float
+            Total enclosed volume.
+        """
+        if not self.is_closed():
+            return 0.0
+        if not self.is_oriented():
+&gt;           raise ValueError(
+                "Error: Can only compute volume for oriented triangle meshes!"
+            )
+E           ValueError: Error: Can only compute volume for oriented triangle meshes!
+
+tria_mesh.py:318: ValueError</failure></testcase><testcase classname="lapy.test_tria_mesh" name="test_vertex_degrees" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_vertex_areas" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_avg_edge_length" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_tria_normals" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_tria_qualities" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_has_free_vertices" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_rm_free_vertices" time="0.001" /><testcase classname="lapy.test_tria_mesh" name="test_orient" time="0.003" /><testcase classname="lapy.test_tria_mesh" name="test_vertex_normals" time="0.003" /><testcase classname="lapy.test_tria_mesh" name="test_vertex_normals_and_normal_offset" time="0.001"><failure message="ValueError: Error: Vertex normals are meaningless for un-oriented triangle meshes!">tria_mesh_fixture = &lt;lapy.tria_mesh.TriaMesh object at 0x7f6a0bf3aca0&gt;
+
+    def test_vertex_normals_and_normal_offset(tria_mesh_fixture):
+        # Calculate the original vertex normals
+&gt;       original_normals = tria_mesh_fixture.vertex_normals()
+
+test_tria_mesh.py:285: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;lapy.tria_mesh.TriaMesh object at 0x7f6a0bf3aca0&gt;
+
+    def vertex_normals(self):
+        """Compute vertex normals.
+    
+        get_vertex_normals(v,t) computes vertex normals
+            Triangle normals around each vertex are averaged, weighted
+            by the angle that they contribute.
+            Ordering is important: counterclockwise when looking
+            at the triangle from above.
+    
+        Returns
+        -------
+        n : array of shape (n_triangles, 3)
+            Vertex normals.
+        """
+        if not self.is_oriented():
+&gt;           raise ValueError(
+                "Error: Vertex normals are meaningless for un-oriented triangle meshes!"
+            )
+E           ValueError: Error: Vertex normals are meaningless for un-oriented triangle meshes!
+
+tria_mesh.py:419: ValueError</failure></testcase><testcase classname="lapy.test_tria_mesh" name="test_boundary_mesh" time="0.002" /><testcase classname="lapy.test_tria_mesh" name="test_refine_and_boundary_loops" time="0.004" /></testsuite></testsuites>
