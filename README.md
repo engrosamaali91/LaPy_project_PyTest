@@ -51,4 +51,24 @@ Each test case validates the expected behavior of the corresponding method in th
 pytest test_tet_mesh.py
 ```
 
+# Test Case: Visualize First Non-Constant Eigenfunction
+
+This test case focuses on visualizing the first non-constant eigenfunction on a cube mesh and comparing it with a reference image. The purpose of this test is to ensure that the visualization function produces results that are visually similar to the expected reference image.
+
+## Prerequisites
+
+Make sure you have the following dependencies installed:
+
+- Python (>= 3.8)
+- Required Python packages: `numpy`, `pytest`, `lapy`, `matplotlib`, `opencv-python`
+
+You can install the required packages using the following command in your virtual environment:
+
+```bash
+pip install numpy pytest lapy matplotlib imageio opencv-python
+```
+## Running Tests
+```bash
+pytest test_plot_tria_mesh.py
+```
 
