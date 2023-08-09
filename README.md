@@ -72,3 +72,27 @@ pip install numpy pytest lapy matplotlib imageio opencv-python
 pytest test_plot_tria_mesh.py
 ```
 
+
+
+
+# Test cases for ShapeDNA Module
+The ShapeDNA module provides functions for computing, normalizing, and analyzing shape descriptors for both tria and tet meshes. 
+
+## Test Cases
+
+We have provided comprehensive unit test cases for the ShapeDNA module to ensure its correctness. Each test case verifies specific functionality and compares computed values with expected results using tolerance thresholds. The test cases cover:
+
+1. Computing eigenvalues and eigenvectors.
+2. Normalizing eigenvalues using the 'geometry' method.
+3. Linear reweighting of eigenvalues.
+4. Computing distances between eigenvalues.
+
+## Running Tests
+
+To run the test cases, ensure you have the required dependencies installed. You can then use a testing framework like `pytest`:
+
+```bash
+pip install pytest
+pytest test_shape_DNA.py
+```
+
