@@ -1,0 +1,28 @@
+{
+    "expected_outcomes": 
+    {
+        "compute_shapedna": {
+            "expected_eigenvalues": [
+                -4.0165149e-05,
+                4.169641,
+                4.1704664
+            ]
+        },
+        "normalize_ev_geometry": {
+            "expected_normalized_values": [
+                -0.00024099089,
+                25.017845,
+                25.022799
+            ]
+        },
+        "another_function": {
+            "expected_output": [
+                10,
+                2
+            ]
+        },
+        "test_triangle_mesh_visualization_using_checksum":{
+            "real_img_checksum": "abaaa757a1e5c1f42a8302fbfe068f49"
+        }
+    }
+}
