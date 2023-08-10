@@ -1,25 +1,35 @@
 {
     "expected_outcomes": 
     {
-        "compute_shapedna": {
-            "expected_eigenvalues": [
-                -4.0165149e-05,
-                4.169641,
-                4.1704664
-            ]
+        "test_compute_shapedna": {
+            "expected_eigenvalues": [-4.0165149e-05, 4.169641, 4.1704664],
+            "tolerance": 1e-4
         },
-        "normalize_ev_geometry": {
-            "expected_normalized_values": [
-                -0.00024099089,
-                25.017845,
-                25.022799
-            ]
+        "test_normalize_ev_geometry": {
+            "expected_normalized_values": [-0.00024099089, 25.017845, 25.022799],
+            "tolerance": 1e-4
         },
-        "another_function": {
-            "expected_output": [
-                10,
-                2
-            ]
+        "test_reweight_ev":{
+            "expected_reweighted_values": [-4.01651487e-05, 2.08482051e+00, 1.39015547e+00],
+            "tolerance": 1e-4
+        },
+        "test_compute_distance":{
+            "expected_compute_distance": 0.0
+        },
+        "test_compute_shapedna_tet":{
+            "expected_eigen_values": [8.4440224e-05, 9.8897915e+00, 9.8898811e+00],
+            "tolerance": 1e-4
+        },
+        "test_normalize_ev_geometry_tet":{
+            "expected_normalized_values": [8.4440224e-05, 9.8897915e+00, 9.8898811e+00],
+            "tolerance": 1e-4
+        },
+        "test_reweight_ev_tet":{
+            "expected_reweighted_values": [8.44402239e-05, 4.94489574e+00, 3.29662704e+00],
+            "tolerance": 1e-4
+        },
+        "test_compute_distance_tet":{
+            "exp_compute_distance": 0.0
         },
         "test_triangle_mesh_visualization_using_checksum":{
             "real_img_checksum": "abaaa757a1e5c1f42a8302fbfe068f49"
