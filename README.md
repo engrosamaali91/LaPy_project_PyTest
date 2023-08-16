@@ -97,7 +97,7 @@ pytest test_shape_DNA.py
 ```
 
 
-# TriaMesh Geodesics
+# Test cases for TriaMesh Geodesics
 
 This repository showcases the usage and testing of the TriaMesh Geodesics functionality provided by the `lapy` library.
 It demonstrates various operations such as heat diffusion, Laplacian eigenfunctions, and geodesics on triangular meshes.
