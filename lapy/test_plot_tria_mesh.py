@@ -36,6 +36,7 @@ def test_visualize_first_eigenfunction():
     fig = plot.plot_tria_mesh(tria_mesh, vfunc=evecs[:, 1], xrange=None, yrange=None, zrange=None,
                               showcaxis=False, caxis=None)
 
+    
     gen_img_filename = "test_image_1.png"
     img_path = os.path.join(images_dir, gen_img_filename)
     gen_img_data = cv.imread(img_path)

@@ -1,13 +1,18 @@
-from lapy import TriaMesh, plot, Solver, heat
 import os
+
 import numpy as np
 import plotly.io as pio
+
+from lapy import Solver, TriaMesh, heat, plot
+
 pio.renderers.default = "sphinx_gallery"
-from lapy.plot import plot_tria_mesh
-import cv2
 import hashlib
-import pytest
 import json
+
+import cv2
+import pytest
+
+from lapy.plot import plot_tria_mesh
 
 images_dir = os.path.join(os.path.dirname(__file__),"..", "images")
 data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
@@ -111,8 +116,7 @@ def test_Laplase_Geodesics(loaded_data):
     assert Bi is not B
 
 # Geodesics
-from lapy.diffgeo import compute_gradient
-from lapy.diffgeo import compute_divergence
+from lapy.diffgeo import compute_divergence, compute_gradient
 
 bvert = T.boundary_loops()
 u = heat.diffusion(T, bvert, m=1)
@@ -137,6 +141,7 @@ divx = compute_divergence(T,X)
 
 # compute distance
 from scipy.sparse.linalg import splu
+
 useCholmod = True
 try:
     from sksparse.cholmod import cholesky
@@ -172,6 +177,7 @@ vf = vf - min(vf)
 
 print(max(abs(vf-x)))
 from lapy.diffgeo import compute_geodesic_f
+
 gf = compute_geodesic_f(T,u)
 
 def test_Geodesics_format(loaded_data):

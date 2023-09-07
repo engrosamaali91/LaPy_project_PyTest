@@ -1,102 +1,141 @@
-from lapy.tet_mesh import TetMesh
-
+import json
+import logging
 import numpy as np
 import pytest
-import logging 
+from lapy.tet_mesh import TetMesh
+
 
 @pytest.fixture
 def tet_mesh_fixture():
-    points = np.array([[0,0,0], [1,0,0], [1,1,0], [0,1,0], [0,0,1],
-                       [1,0,1], [1,1,1], [0,1,1], [0.5,0.5,0.5]])
-    tets = np.array([[0,5,8,1], [0,4,5,8], [2,5,6,8], [1,5,2,8],
-                     [6,7,3,8], [6,3,2,8], [0,3,4,8], [3,7,4,8],
-                     [0,1,2,8], [0,2,3,8], [4,6,5,8], [4,7,6,8]])
-    
+    points = np.array(
+        [
+            [0, 0, 0],
+            [1, 0, 0],
+            [1, 1, 0],
+            [0, 1, 0],
+            [0, 0, 1],
+            [1, 0, 1],
+            [1, 1, 1],
+            [0, 1, 1],
+            [0.5, 0.5, 0.5],
+        ]
+    )
+    tets = np.array(
+        [
+            [0, 5, 8, 1],
+            [0, 4, 5, 8],
+            [2, 5, 6, 8],
+            [1, 5, 2, 8],
+            [6, 7, 3, 8],
+            [6, 3, 2, 8],
+            [0, 3, 4, 8],
+            [3, 7, 4, 8],
+            [0, 1, 2, 8],
+            [0, 2, 3, 8],
+            [4, 6, 5, 8],
+            [4, 7, 6, 8],
+        ]
+    )
+
     return TetMesh(points, tets)
 
 
+@pytest.fixture
+def loaded_data():
+    """
+    Load and provide the expected outcomes data from a JSON file.
+
+    Returns:
+        dict: Dictionary containing the expected outcomes data.
+    """
+    with open("expected_outcomes.json", "r") as f:
+        expected_outcomes = json.load(f)
+    return expected_outcomes
+
+
 def test_has_free_vertices(tet_mesh_fixture):
-    '''
+    """
     Testing tet mesh has free vertices or not
-    '''
+    """
     mesh = tet_mesh_fixture
     result = mesh.has_free_vertices()
     expected_result = False
-    assert result == expected_result 
+    assert result == expected_result
 
 
-def test_rm_free_vertices(tet_mesh_fixture):
-    '''
+def test_rm_free_vertices(tet_mesh_fixture, loaded_data):
+    """
     Testing removing free vertices from tet mesh
-    '''
-
+    """
     mesh = tet_mesh_fixture
     updated_vertices, deleted_vertices = mesh.rm_free_vertices_()
-    expected_vertices = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+    expected_vertices = np.array(
+        loaded_data["expected_outcomes"]["test_tet_mesh"]["expected_vertices"]
+    )
     expected_removed_vertices = np.array([])
-
-
-    # print(updated_vertices.shape)
-
-
-    assert np.array_equal(updated_vertices, expected_vertices), f"{updated_vertices}, {deleted_vertices}"
+    assert np.array_equal(
+        updated_vertices, expected_vertices
+    ), f"{updated_vertices}, {deleted_vertices}"
     assert np.array_equal(deleted_vertices, expected_removed_vertices)
 
 
 def test_is_oriented(tet_mesh_fixture):
-    '''
-    Testing whether test mesh orientations are consistent  
-    '''
+    """
+    Testing whether test mesh orientations are consistent
+    """
     mesh = tet_mesh_fixture
     result = mesh.is_oriented()
     expected_result = False
-    assert result == expected_result, f"Expected is_oriented result {expected_result}, but got {result}"
-
-
+    assert (
+        result == expected_result
+    ), f"Expected is_oriented result {expected_result}, but got {result}"
 
 
 def test_avg_edge_length(tet_mesh_fixture):
-
-    '''
+    """
     Testing computation of average edge length
-    '''
+    """
     expected_result = 1.0543647924813107
     mesh = tet_mesh_fixture
     result = mesh.avg_edge_length()
 
-    assert result == expected_result, f"Expected average edge length {expected_result}, but got {result}"
+    assert (
+        result == expected_result
+    ), f"Expected average edge length {expected_result}, but got {result}"
+
 
 def test_boundary_trai(tet_mesh_fixture):
-    '''
+    """
     Testing computation of boundary triangles from tet mesh
 
     The .t attribute of a mesh object is often used to
-    represent the triangles of the mesh. BT.t would thus be the array of triangles 
+    represent the triangles of the mesh. BT.t would thus be the array of triangles
     in the boundary mesh.
 
-    .shape[0] is used to retrieve the number of rows 
-    (or the length along the first dimension) of the array. In this context, 
+    .shape[0] is used to retrieve the number of rows
+    (or the length along the first dimension) of the array. In this context,
     it's used to count the number of triangles in the boundary mesh.
-    '''
+    """
     mesh = tet_mesh_fixture
     boundary_tria_mesh = mesh.boundary_tria()
 
     expected_num_traingles = 12
-    assert boundary_tria_mesh.t.shape[0]  == expected_num_traingles
-    
+    assert boundary_tria_mesh.t.shape[0] == expected_num_traingles
+
     # print(f"Found {boundary_tria_mesh.t.shape[0]} triangles on boundary.")
 
     # Check if the boundary triangle mesh is not oriented (this should fail)
     result = boundary_tria_mesh.is_oriented()
     expected_result = False
-    assert result == expected_result, f"Expected is_oriented result {expected_result}, but got {result}"
-
+    assert (
+        result == expected_result
+    ), f"Expected is_oriented result {expected_result}, but got {result}"
 
 
 def test_avg_edge_length(tet_mesh_fixture):
-    '''
+    """
     Testing the computatoin of average edge length for tetrahedral mesh
-    '''
+    """
     mesh = tet_mesh_fixture
     result = mesh.avg_edge_length()
 
@@ -106,9 +145,9 @@ def test_avg_edge_length(tet_mesh_fixture):
 
 
 def test_boundary_is_oriented(tet_mesh_fixture):
-    '''
+    """
     Testing the consistency of orientations in the boundary of a tetrahedral mesh
-    '''
+    """
     mesh = tet_mesh_fixture
 
     # Get the boundary triangle mesh
@@ -122,11 +161,10 @@ def test_boundary_is_oriented(tet_mesh_fixture):
     assert result == expected_result
 
 
-
 def test_orient_and_check_oriented(tet_mesh_fixture):
-    '''
+    """
     Testing orienting the tetrahedral mesh and checking if orientations are consistent
-    '''
+    """
     mesh = tet_mesh_fixture
 
     # Correct the orientation of the tetrahedral mesh
@@ -144,12 +182,10 @@ def test_orient_and_check_oriented(tet_mesh_fixture):
     assert result == expected_oriented_result
 
 
-
-
 def test_correct_orientations_and_boundary(tet_mesh_fixture):
-    '''
+    """
     Testing correcting orientation and checking boundary surface orientation
-    '''
+    """
     mesh = tet_mesh_fixture
 
     # Correct the orientation of the tetrahedral mesh
@@ -171,11 +207,10 @@ def test_correct_orientations_and_boundary(tet_mesh_fixture):
     assert result_boundary_oriented == expected_boundary_oriented_result
 
 
-
 def test_boundary_surface_volume(tet_mesh_fixture):
-    '''
+    """
     Testing computation of volume for the boundary surface mesh
-    '''
+    """
     mesh = tet_mesh_fixture
 
     # Correct the orientation of the tetrahedral mesh
