@@ -96,3 +96,34 @@ pip install pytest
 pytest test_shape_DNA.py
 ```
 
+
+# Test cases for TriaMesh Geodesics
+
+This repository showcases the usage and testing of the TriaMesh Geodesics functionality provided by the `lapy` library.
+It demonstrates various operations such as heat diffusion, Laplacian eigenfunctions, and geodesics on triangular meshes.
+
+## Test Cases
+
+
+The repository includes tests to ensure the correctness of the implemented functionalities. The tests cover the following scenarios:
+
+- **TriaMesh Geodesics**: Tests the identity of reference and generated images.
+- **Laplacian Geodesics**: Tests Laplacian eigenfunctions and solver settings.
+- **Heat Diffusion Shape**: Tests the shape of heat diffusion results.
+- **Geodesics Format**: Tests matrix format, solver settings, max distance, and computed values.
+
+## Running Tests
+
+1. Place the expected outcomes data in a JSON file named `expected_outcomes.json` or retrive data from 'expected_outcomes.json' file by placing it in same directory as of your source code.
+2. Run the following command:
+```bash
+pip install pytest
+pytest test_TriaMesh_Geodesics.py
+```
+
+
+
+
+
+
+
